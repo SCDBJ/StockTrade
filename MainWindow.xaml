@@ -9,12 +9,12 @@
         Title="StockTradingRecord" Height="900" Width="1240" WindowStartupLocation="CenterScreen"  WindowState="Normal" Loaded="Window_Loaded"  Closing="Window_Closing">
     <Grid Margin="-1,0,1,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="3" Height="3"/>
@@ -80,10 +80,10 @@
                     <Style TargetType="{x:Type DataGridRow}">
                         <Setter Property="HorizontalAlignment" Value="Center"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
+                        <EventSetter Event="UIElement.GotFocus" Handler="DataGridRow_GotFocus"/>
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="股票id" Binding="{Binding StockId}" Width="*" Visibility="Hidden" />
                     <DataGridTextColumn Header="序号"  Width="*" Binding="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}, Mode=FindAncestor}}" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}">
@@ -92,6 +92,8 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <DataGridTextColumn Header="股票id" Binding="{Binding StockId}" Width="*" Visibility="Hidden" />
+                    
                     <DataGridTextColumn Header="股票名称" Binding="{Binding StockName}" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}">
@@ -156,6 +158,15 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="操作" Width ="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="btnDelete" Margin="30,7,0,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="删除" Width="50" Height="26"  FontSize="13" Background="#1C86EE" Foreground="White" Click="btnDelete_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

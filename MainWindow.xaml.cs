@@ -23,6 +23,8 @@ namespace StockTradingRecord
     {
         private string stockTradeAddUrl = "http://42.194.146.7:26500/StockTrade/AddStockTrade";
         private string stockTradeGetUrl = "http://42.194.146.7:26500/StockTrade/GetStockTrade";
+        private string stockTradeDeleteUrl = "http://42.194.146.7:26500/StockTrade/DeleteStockTrade";
+        StockTradeModel stockTrade = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -93,10 +95,7 @@ namespace StockTradingRecord
                     string endDate= datePickerEnd.Text;
                     tboxStockCode.Text = "";
                     tboxStockName.Text = "";
-                    param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\""+ startDate + "\",\"TradeEndDate\":\""+ endDate + "\"}";
-                    result = HttpService.HttpPost(stockTradeGetUrl, null, param);
-                    List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-                    dataGridRecords.ItemsSource = stockTradeList;
+                    BindDataGrid();
                     MessageBox.Show("新增成功!");
                     return;
                 }
@@ -108,12 +107,7 @@ namespace StockTradingRecord
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string startDate = datePickerStart.Text;
-            string endDate = datePickerEnd.Text;
-            string param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
-            string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
-            List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-            dataGridRecords.ItemsSource = stockTradeList;
+            BindDataGrid();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -123,6 +117,46 @@ namespace StockTradingRecord
         private void dataGridRecords_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = e.Row.GetIndex() + 1;
+        }
+        private void DataGridRow_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var item = (DataGridRow)sender;
+            FrameworkElement objElement = dataGridRecords.Columns[0].GetCellContent(item);
+            if (objElement != null)
+            {
+                var dataContent = objElement.DataContext;
+                if (dataContent != null)
+                {
+                    StockTradeModel stockTradeModel = (StockTradeModel)dataContent;
+                    stockTrade = stockTradeModel;
+                }
+            }
+        }
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("确定要删除吗?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (messageBoxResult == MessageBoxResult.No)
+            {
+                return;
+            }
+            if (stockTrade != null)
+            {
+                string deleteJson = "{\"StockTrade\":\"DeleteStockTrade\",\"StockId\":\"" + stockTrade.StockId + "\"}";
+                string deleteResult = HttpService.HttpPost(stockTradeDeleteUrl,null, deleteJson);
+                if (deleteResult.Contains("删除成功"))
+                {
+                    BindDataGrid();
+                }
+            }
+        }
+        private void BindDataGrid()
+        {
+            string startDate = datePickerStart.Text;
+            string endDate = datePickerEnd.Text;
+            string param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
+            string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
+            List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
+            dataGridRecords.ItemsSource = stockTradeList;
         }
     }
 }
