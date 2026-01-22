@@ -38,7 +38,12 @@ namespace StockTradingRecord
         {
             string startDate = datePickerStart.Text;
             string endDate = datePickerEnd.Text;
-
+            string stockName= tboxStockName.Text;
+            string stockCode = tboxStockCode.Text;
+            string param = "{\"StockCode\":\"" + stockCode + "\",\"StockName\":\"" + stockName + "\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
+            string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
+            List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
+            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate);
         }
         /// <summary>
         /// 新增
@@ -157,6 +162,11 @@ namespace StockTradingRecord
             tboxBuyPrice.Text = "";
             tboxBuyShares.Text = "";
             tboxProfitLoss.Text = "";
+
+            tboxStockName.Text = "";
+            tboxStockCode.Text= "";
+            datePickerStart.SelectedDate = DateTime.Now.AddMonths(-12);
+            datePickerEnd.SelectedDate = DateTime.Now;
         }
         private void BindDataGrid()
         {
