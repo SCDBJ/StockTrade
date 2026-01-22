@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StockTradingRecord"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="StockTradingRecord.MainWindow"
         mc:Ignorable="d"
-        Title="StockTradingRecord" Height="900" Width="1200" WindowStartupLocation="CenterScreen"  WindowState="Normal" Loaded="Window_Loaded"  Closing="Window_Closing">
+        Title="StockTradingRecord" Width="1220" Height="830" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowState="Normal" Loaded="Window_Loaded"  Closing="Window_Closing">
     <Grid Margin="-1,0,1,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
@@ -65,116 +65,114 @@
             <Label Content="盈亏金额:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
             <TextBox x:Name="tboxProfitLoss"  Text="" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
             <Button Content="新增" x:Name="btnAdd" Click="btnAdd_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="20,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <Button Content="重置" x:Name="btnReset" Click="btnReset_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold"  Margin="20,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="65"  Height="28"/>
+            <Button Content="重置" x:Name="btnReset" Click="btnReset_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold"  Margin="20,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="65"  Height="28"/>
         </WrapPanel>
         <Border Grid.Row="5" BorderBrush="Gray" BorderThickness="3" Height="3"/>
-        <StackPanel Grid.Row="6">
-            <DataGrid x:Name="dataGridRecords" ClipboardCopyMode="IncludeHeader" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" FontSize="12" Margin="10,10,10,10" HeadersVisibility="Column" Width="1158" ScrollViewer.VerticalScrollBarVisibility="Visible"  RowHeaderWidth="0" LoadingRow="dataGridRecords_LoadingRow">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="FontSize" Value="15"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.RowStyle>
-                    <Style TargetType="{x:Type DataGridRow}">
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="MaxHeight" Value="30"/>
-                        <EventSetter Event="UIElement.GotFocus" Handler="DataGridRow_GotFocus"/>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="序号"  Width="*" Binding="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}, Mode=FindAncestor}}" >
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="股票id" Binding="{Binding StockId}" Width="*" Visibility="Hidden" />
-                    
-                    <DataGridTextColumn Header="股票名称" Binding="{Binding StockName}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="股票代码" Binding="{Binding StockCode}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="交易日期" Binding="{Binding TradeDate, StringFormat=yyyy-MM-dd}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="交易类型" Binding="{Binding TradeType}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding TradeType}" Value="建仓">
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding TradeType}" Value="清仓">
-                                        <Setter Property="Foreground" Value="Red"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="交易价格" Binding="{Binding TradePrice}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="交易股数" Binding="{Binding TradeShares}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="盈亏金额" Binding="{Binding ProfitLossAmount}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="操作" Width ="0.7*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btnDelete" Margin="20,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="删除" Width="50" Height="26"  FontSize="12" Background="#1C86EE" Foreground="White" Click="btnDelete_Click"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <DataGrid  Grid.Row="6" EnableRowVirtualization="True" x:Name="dataGridRecords"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" FontSize="12" Margin="10,10,10,10" HeadersVisibility="Column" ScrollViewer.VerticalScrollBarVisibility="Visible"   RowHeaderWidth="0" LoadingRow="dataGridRecords_LoadingRow">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="15"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="MaxHeight" Value="30"/>
+                    <EventSetter Event="UIElement.GotFocus" Handler="DataGridRow_GotFocus"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="序号"  Width="0.5*" Binding="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}, Mode=FindAncestor}}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="股票id" Binding="{Binding StockId}" Width="*" Visibility="Hidden" />
+
+                <DataGridTextColumn Header="股票名称" Binding="{Binding StockName}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="股票代码" Binding="{Binding StockCode}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="交易日期" Binding="{Binding TradeDate, StringFormat=yyyy-MM-dd}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="交易类型" Binding="{Binding TradeType}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TradeType}" Value="建仓">
+                                    <Setter Property="Foreground" Value="Green"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding TradeType}" Value="清仓">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="交易价格" Binding="{Binding TradePrice}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="交易股数" Binding="{Binding TradeShares}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="盈亏金额" Binding="{Binding ProfitLossAmount}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="操作" Width ="0.7*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnDelete" Margin="20,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="删除" Width="50" Height="26"  FontSize="12" Background="#1C86EE" Foreground="White" Click="btnDelete_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
