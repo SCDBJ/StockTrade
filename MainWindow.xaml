@@ -35,6 +35,13 @@
             <TextBox x:Name="tboxStockName"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="143"  Height="28"/>
             <Label Content="股票代码:" FontSize="12" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
             <TextBox x:Name="tboxStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143"  Height="28"/>
+            <Label Content="交易类型:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
+            <ComboBox  Name="cboxQueryTradeType" Width="60" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" SelectionChanged="cboxTradeType_SelectionChanged"  Height="28">
+                <ComboBoxItem Tag="4"  Content="清仓"/>
+                <ComboBoxItem Tag="3"  Content="卖出"/>
+                <ComboBoxItem Tag="2"  Content="买入"/>
+                <ComboBoxItem Tag="1"  Content="建仓"/>
+            </ComboBox>
             <Button Content="查询" x:Name="btnQuery" Click="btnQuery_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
         </WrapPanel>
         <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="3" Height="3"/>
@@ -53,10 +60,10 @@
             </DatePicker>
             <Label Content="交易类型:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
             <ComboBox  Name="cboxTradeType" Width="60" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" SelectionChanged="cboxTradeType_SelectionChanged"  Height="28">
-                <ComboBoxItem Content="建仓"/>
-                <ComboBoxItem Content="买入"/>
-                <ComboBoxItem Content="卖出"/>
-                <ComboBoxItem Content="清仓"/>
+                <ComboBoxItem Tag="1"  Content="建仓"/>
+                <ComboBoxItem Tag="2"  Content="买入"/>
+                <ComboBoxItem Tag="3"  Content="卖出"/>
+                <ComboBoxItem Tag="4"  Content="清仓"/>
             </ComboBox>
             <Label Content="交易价格:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
             <TextBox x:Name="tboxBuyPrice"  Text="" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
@@ -72,7 +79,7 @@
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="FontSize" Value="16"/>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.RowStyle>
@@ -80,6 +87,7 @@
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="MaxHeight" Value="30"/>
+                    <Setter Property="FontSize" Value="15"/>
                     <EventSetter Event="UIElement.GotFocus" Handler="DataGridRow_GotFocus"/>
                 </Style>
             </DataGrid.RowStyle>

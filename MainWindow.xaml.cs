@@ -43,7 +43,11 @@ namespace StockTradingRecord
             string param = "{\"StockCode\":\"" + stockCode + "\",\"StockName\":\"" + stockName + "\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
             List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate);
+            if(cboxQueryTradeType.Text!="")
+            {
+                stockTradeList= stockTradeList.Where(o => o.TradeType == cboxQueryTradeType.Text).ToList();
+            }
+            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
         }
         /// <summary>
         /// 新增
@@ -175,7 +179,7 @@ namespace StockTradingRecord
             string param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
             List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o=>o.TradeDate);
+            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o=>o.TradeDate).ThenByDescending(o=>o.TradeType);
         }
 
         private void cboxTradeType_SelectionChanged(object sender, SelectionChangedEventArgs e)
