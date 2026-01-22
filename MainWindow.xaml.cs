@@ -96,7 +96,7 @@ namespace StockTradingRecord
                     tboxStockCode.Text = "";
                     tboxStockName.Text = "";
                     BindDataGrid();
-                    MessageBox.Show("新增成功!");
+                    //MessageBox.Show("新增成功!");
                 }
                 else
                 {
