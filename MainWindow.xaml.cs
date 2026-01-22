@@ -97,7 +97,6 @@ namespace StockTradingRecord
                     tboxStockName.Text = "";
                     BindDataGrid();
                     MessageBox.Show("新增成功!");
-                    return;
                 }
                 else
                 {
@@ -107,6 +106,7 @@ namespace StockTradingRecord
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            datePickerStart.SelectedDate= DateTime.Now.AddMonths(-12);
             BindDataGrid();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -149,6 +149,15 @@ namespace StockTradingRecord
                 }
             }
         }
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            tboxAddStockCode.Text = "";
+            tboxAddStockName.Text = "";
+            cboxTradeType.Text = "";
+            tboxBuyPrice.Text = "";
+            tboxBuyShares.Text = "";
+            tboxProfitLoss.Text = "";
+        }
         private void BindDataGrid()
         {
             string startDate = datePickerStart.Text;
@@ -156,7 +165,22 @@ namespace StockTradingRecord
             string param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
             List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-            dataGridRecords.ItemsSource = stockTradeList;
+            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o=>o.TradeDate);
+        }
+
+        private void cboxTradeType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = (sender as ComboBox).SelectedItem;
+            if (selectedItem != null)
+            {
+                var comboBoxItem = selectedItem as ComboBoxItem;
+                string tradeType = comboBoxItem.Content.ToString();
+                tboxProfitLoss.Text = "";
+                if (tradeType != "清仓")
+                {
+                    tboxProfitLoss.Text="0";
+                }
+            }
         }
     }
 }
