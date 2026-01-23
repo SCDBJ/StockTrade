@@ -47,27 +47,30 @@ namespace StockTradingRecord
                     case "近一月":
                         startDate = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate= DateTime.Now.AddMonths(-1);
-                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
                         break;
                     case "近三月":
                         startDate = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddMonths(-3);
-                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
                         break;
                     case "近半年":
                         startDate = DateTime.Now.AddMonths(-6).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddMonths(-6);
-                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
                         break;
                     case "近一年":
                         startDate = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-1);
-                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
                         break;
                     case "近三年":
                         startDate = DateTime.Now.AddYears(-3).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-3);
-                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
+                        break;
+                    case "近五年":
+                        startDate = DateTime.Now.AddYears(-5).ToString("yyyy-MM-dd");
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-5);
+                        break;
+                    case "近十年":
+                        startDate = DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd");
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-10);
                         break;
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;
@@ -203,6 +206,7 @@ namespace StockTradingRecord
             tboxBuyShares.Text = "";
             tboxProfitLoss.Text = "";
             cboxQueryTradeType.Text="";
+            cboxQueryTradeDate.Text = "近一月";
 
             tboxStockName.Text = "";
             tboxStockCode.Text= "";
@@ -265,6 +269,12 @@ namespace StockTradingRecord
                         break;
                     case "近三年":
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-3);
+                        break;
+                    case "近五年":
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-5);
+                        break;
+                    case "近十年":
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-10);
                         break;
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;

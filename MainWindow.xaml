@@ -23,13 +23,13 @@
         <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="3" Height="3"/>
         <WrapPanel Grid.Row="1">
             <Label Content="开始日期:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <DatePicker x:Name="datePickerStart"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="19">
+            <DatePicker x:Name="datePickerStart"  SelectedDate="{x:Null}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="19">
                 <DatePicker.LayoutTransform>
                     <ScaleTransform  ScaleX="1.5" ScaleY="1.5"/>
                 </DatePicker.LayoutTransform>
             </DatePicker>
             <Label Content="结束日期:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <DatePicker x:Name="datePickerEnd"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="19">
+            <DatePicker x:Name="datePickerEnd"  SelectedDate="{x:Null}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="19">
                 <DatePicker.LayoutTransform>
                     <ScaleTransform  ScaleX="1.5" ScaleY="1.5"/>
                 </DatePicker.LayoutTransform>
@@ -52,6 +52,8 @@
                 <ComboBoxItem Tag="3"  Content="近半年"/>
                 <ComboBoxItem Tag="4"  Content="近一年"/>
                 <ComboBoxItem Tag="5"  Content="近三年"/>
+                <ComboBoxItem Tag="5"  Content="近五年"/>
+                <ComboBoxItem Tag="5"  Content="近十年"/>
             </ComboBox>
             <Button Content="查询" x:Name="btnQuery" Click="btnQuery_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
         </WrapPanel>
