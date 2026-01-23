@@ -202,6 +202,7 @@ namespace StockTradingRecord
             tboxBuyPrice.Text = "";
             tboxBuyShares.Text = "";
             tboxProfitLoss.Text = "";
+            cboxQueryTradeType.Text="";
 
             tboxStockName.Text = "";
             tboxStockCode.Text= "";
