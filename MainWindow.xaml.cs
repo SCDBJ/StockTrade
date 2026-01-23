@@ -82,6 +82,8 @@ namespace StockTradingRecord
                     stockTradeList = stockTradeList.Where(o => o.TradeType == cboxQueryTradeType.Text).ToList();
                 }
                 dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
+                var sumProfitLoss = stockTradeList.Sum(o => o.ProfitLossAmount);
+                tboxProfitLossAmount.Text = sumProfitLoss.ToString();
             }
         }
         /// <summary>
@@ -215,7 +217,12 @@ namespace StockTradingRecord
             if (!string.IsNullOrEmpty(result))
             {
                 List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-                dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
+                if (dataGridRecords != null)
+                {
+                    dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
+                    var sumProfitLoss = stockTradeList.Sum(o => o.ProfitLossAmount);
+                    tboxProfitLossAmount.Text = sumProfitLoss.ToString();
+                }
             }
         }
 
@@ -260,6 +267,7 @@ namespace StockTradingRecord
                         break;
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;
+                BindDataGrid();
             }
         }
 

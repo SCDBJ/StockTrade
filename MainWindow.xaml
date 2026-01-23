@@ -16,6 +16,9 @@
             <RowDefinition Height="0.52*"/>
             <RowDefinition Height="0.15*"/>
             <RowDefinition Height="10*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.15*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="3" Height="3"/>
         <WrapPanel Grid.Row="1">
@@ -209,5 +212,10 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Border Grid.Row="7" BorderBrush="Gray" BorderThickness="3" Height="3"/>
+        <WrapPanel Grid.Row="8">
+            <Label Content="总盈亏金额:" FontSize="12" HorizontalAlignment="Left" Margin="915,0,0,0" VerticalAlignment="Top" Width="72"  Height="28"/>
+            <TextBox x:Name="tboxProfitLossAmount" IsReadOnly="True" Text="" FontSize="13" Margin="990,-29,0,0"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="80"  Height="28"/>
+        </WrapPanel>
     </Grid>
 </Window>
