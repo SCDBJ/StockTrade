@@ -38,15 +38,15 @@ namespace StockTradingRecord
         {
             string startDate = datePickerStart.Text;
             string endDate = datePickerEnd.Text;
-            string stockName= tboxStockName.Text;
+            string stockName = tboxStockName.Text;
             string stockCode = tboxStockCode.Text;
-            if(cboxQueryTradeDate.Text!= "")
+            if (cboxQueryTradeDate.Text != "")
             {
                 switch (cboxQueryTradeDate.Text)
                 {
                     case "近一月":
                         startDate = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd");
-                        datePickerStart.SelectedDate= DateTime.Now.AddMonths(-1);
+                        datePickerStart.SelectedDate = DateTime.Now.AddMonths(-1);
                         break;
                     case "近三月":
                         startDate = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd");
@@ -77,7 +77,7 @@ namespace StockTradingRecord
             }
             string param = "{\"StockCode\":\"" + stockCode + "\",\"StockName\":\"" + stockName + "\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
-            if(!string.IsNullOrEmpty(result))
+            if (!string.IsNullOrEmpty(result))
             {
                 List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
                 if (cboxQueryTradeType.Text != "")
@@ -106,7 +106,7 @@ namespace StockTradingRecord
                 MessageBox.Show("请输入股票名称!");
                 return;
             }
-            if(cboxTradeType.Text=="")
+            if (cboxTradeType.Text == "")
             {
                 MessageBox.Show("请选择交易类型!");
                 return;
@@ -127,21 +127,21 @@ namespace StockTradingRecord
                 return;
             }
             string stockCode = tboxAddStockCode.Text;
-            string stockName= tboxAddStockName.Text;
+            string stockName = tboxAddStockName.Text;
             string tradeDate = dateTradePicker.Text;
             string tradeType = cboxTradeType.Text;
             string buyPrice = tboxBuyPrice.Text;
             string buyShares = tboxBuyShares.Text;
             string profitLoss = tboxProfitLoss.Text;
-            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice=float.Parse(buyPrice), TradeShares=int.Parse(buyShares), TradeType=tradeType, ProfitLossAmount=decimal.Parse(profitLoss) };
-            string param= Newtonsoft.Json.JsonConvert.SerializeObject(stockTradeModel);
-            string result= HttpService.HttpPost(stockTradeAddUrl,null,param);
-            if(result!=null)
+            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = float.Parse(buyPrice), TradeShares = int.Parse(buyShares), TradeType = tradeType, ProfitLossAmount = decimal.Parse(profitLoss) };
+            string param = Newtonsoft.Json.JsonConvert.SerializeObject(stockTradeModel);
+            string result = HttpService.HttpPost(stockTradeAddUrl, null, param);
+            if (result != null)
             {
                 if (result.Contains("保存成功"))
                 {
-                    string startDate= datePickerStart.Text;
-                    string endDate= datePickerEnd.Text;
+                    string startDate = datePickerStart.Text;
+                    string endDate = datePickerEnd.Text;
                     tboxStockCode.Text = "";
                     tboxStockName.Text = "";
                     BindDataGrid();
@@ -190,7 +190,7 @@ namespace StockTradingRecord
             if (stockTrade != null)
             {
                 string deleteJson = "{\"StockTrade\":\"DeleteStockTrade\",\"StockId\":\"" + stockTrade.StockId + "\"}";
-                string deleteResult = HttpService.HttpPost(stockTradeDeleteUrl,null, deleteJson);
+                string deleteResult = HttpService.HttpPost(stockTradeDeleteUrl, null, deleteJson);
                 if (deleteResult.Contains("删除成功"))
                 {
                     BindDataGrid();
@@ -205,11 +205,11 @@ namespace StockTradingRecord
             tboxBuyPrice.Text = "";
             tboxBuyShares.Text = "";
             tboxProfitLoss.Text = "";
-            cboxQueryTradeType.Text="";
+            cboxQueryTradeType.Text = "";
             cboxQueryTradeDate.Text = "近一月";
 
             tboxStockName.Text = "";
-            tboxStockCode.Text= "";
+            tboxStockCode.Text = "";
             datePickerStart.SelectedDate = DateTime.Now.AddMonths(-1);
             datePickerEnd.SelectedDate = DateTime.Now;
         }
@@ -241,7 +241,7 @@ namespace StockTradingRecord
                 tboxProfitLoss.Text = "";
                 if (tradeType != "清仓")
                 {
-                    tboxProfitLoss.Text="0";
+                    tboxProfitLoss.Text = "0";
                 }
             }
         }
@@ -275,6 +275,9 @@ namespace StockTradingRecord
                         break;
                     case "近十年":
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-10);
+                        break;
+                    default:
+                        datePickerStart.SelectedDate = DateTime.Now;
                         break;
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;
