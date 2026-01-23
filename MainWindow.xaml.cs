@@ -40,14 +40,49 @@ namespace StockTradingRecord
             string endDate = datePickerEnd.Text;
             string stockName= tboxStockName.Text;
             string stockCode = tboxStockCode.Text;
+            if(cboxQueryTradeDate.Text!= "")
+            {
+                switch (cboxQueryTradeDate.Text)
+                {
+                    case "近一月":
+                        startDate = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd");
+                        datePickerStart.SelectedDate= DateTime.Now.AddMonths(-1);
+                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
+                        break;
+                    case "近三月":
+                        startDate = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd");
+                        datePickerStart.SelectedDate = DateTime.Now.AddMonths(-3);
+                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
+                        break;
+                    case "近半年":
+                        startDate = DateTime.Now.AddMonths(-6).ToString("yyyy-MM-dd");
+                        datePickerStart.SelectedDate = DateTime.Now.AddMonths(-6);
+                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
+                        break;
+                    case "近一年":
+                        startDate = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd");
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-1);
+                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
+                        break;
+                    case "近三年":
+                        startDate = DateTime.Now.AddYears(-3).ToString("yyyy-MM-dd");
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-3);
+                        endDate = DateTime.Now.ToString("yyyy-MM-dd");
+                        break;
+                }
+                datePickerEnd.SelectedDate = DateTime.Now;
+            }
             string param = "{\"StockCode\":\"" + stockCode + "\",\"StockName\":\"" + stockName + "\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
-            List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-            if(cboxQueryTradeType.Text!="")
+            if(!string.IsNullOrEmpty(result))
             {
-                stockTradeList= stockTradeList.Where(o => o.TradeType == cboxQueryTradeType.Text).ToList();
+                List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
+                if (cboxQueryTradeType.Text != "")
+                {
+                    stockTradeList = stockTradeList.Where(o => o.TradeType == cboxQueryTradeType.Text).ToList();
+                }
+                dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
             }
-            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
         }
         /// <summary>
         /// 新增
@@ -105,7 +140,7 @@ namespace StockTradingRecord
                     tboxStockCode.Text = "";
                     tboxStockName.Text = "";
                     BindDataGrid();
-                    //MessageBox.Show("新增成功!");
+                    MessageBox.Show("新增成功!");
                 }
                 else
                 {
@@ -115,7 +150,6 @@ namespace StockTradingRecord
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            datePickerStart.SelectedDate= DateTime.Now.AddMonths(-12);
             BindDataGrid();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -169,7 +203,7 @@ namespace StockTradingRecord
 
             tboxStockName.Text = "";
             tboxStockCode.Text= "";
-            datePickerStart.SelectedDate = DateTime.Now.AddMonths(-12);
+            datePickerStart.SelectedDate = DateTime.Now.AddMonths(-1);
             datePickerEnd.SelectedDate = DateTime.Now;
         }
         private void BindDataGrid()
@@ -178,8 +212,11 @@ namespace StockTradingRecord
             string endDate = datePickerEnd.Text;
             string param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
-            List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
-            dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o=>o.TradeDate).ThenByDescending(o=>o.TradeType);
+            if (!string.IsNullOrEmpty(result))
+            {
+                List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
+                dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
+            }
         }
 
         private void cboxTradeType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -194,6 +231,59 @@ namespace StockTradingRecord
                 {
                     tboxProfitLoss.Text="0";
                 }
+            }
+        }
+
+        private void cboxQueryTradeDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = (sender as ComboBox).SelectedItem;
+            if (selectedItem != null)
+            {
+                var comboBoxItem = selectedItem as ComboBoxItem;
+                string queryTradeDate = comboBoxItem.Content.ToString();
+                switch (queryTradeDate)
+                {
+                    case "近一月":
+                        datePickerStart.SelectedDate = DateTime.Now.AddMonths(-1);
+                        break;
+                    case "近三月":
+                        datePickerStart.SelectedDate = DateTime.Now.AddMonths(-3);
+                        break;
+                    case "近半年":
+                        datePickerStart.SelectedDate = DateTime.Now.AddMonths(-6);
+                        break;
+                    case "近一年":
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-1);
+                        break;
+                    case "近三年":
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-3);
+                        break;
+                }
+                datePickerEnd.SelectedDate = DateTime.Now;
+            }
+        }
+
+        private void btnCopyStockName_Click(object sender, RoutedEventArgs e)
+        {
+            if (stockTrade != null)
+            {
+                if (Clipboard.ContainsText())
+                {
+                    Clipboard.Clear();
+                }
+                Clipboard.SetText(stockTrade.StockName);
+            }
+        }
+
+        private void btnCopyStockCode_Click(object sender, RoutedEventArgs e)
+        {
+            if (stockTrade != null)
+            {
+                if (Clipboard.ContainsText())
+                {
+                    Clipboard.Clear();
+                }
+                Clipboard.SetText(stockTrade.StockCode);
             }
         }
     }

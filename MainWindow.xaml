@@ -19,63 +19,71 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="3" Height="3"/>
         <WrapPanel Grid.Row="1">
-            <Label Content="开始日期:" FontSize="12" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <DatePicker x:Name="datePickerStart"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="96" Height="19">
+            <Label Content="开始日期:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <DatePicker x:Name="datePickerStart"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="19">
                 <DatePicker.LayoutTransform>
                     <ScaleTransform  ScaleX="1.5" ScaleY="1.5"/>
                 </DatePicker.LayoutTransform>
             </DatePicker>
-            <Label Content="结束日期:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <DatePicker x:Name="datePickerEnd"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="96" Height="19">
+            <Label Content="结束日期:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <DatePicker x:Name="datePickerEnd"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="19">
                 <DatePicker.LayoutTransform>
                     <ScaleTransform  ScaleX="1.5" ScaleY="1.5"/>
                 </DatePicker.LayoutTransform>
             </DatePicker>
-            <Label Content="股票名称:" FontSize="12" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <TextBox x:Name="tboxStockName"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="143"  Height="28"/>
-            <Label Content="股票代码:" FontSize="12" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <TextBox x:Name="tboxStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143"  Height="28"/>
-            <Label Content="交易类型:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <ComboBox  Name="cboxQueryTradeType" Width="60" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" SelectionChanged="cboxTradeType_SelectionChanged"  Height="28">
+            <Label Content="股票名称:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <TextBox x:Name="tboxStockName"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="130"  Height="28"/>
+            <Label Content="股票代码:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <TextBox x:Name="tboxStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
+            <Label Content="交易类型:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <ComboBox  Name="cboxQueryTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"  Height="28">
                 <ComboBoxItem Tag="4"  Content="清仓"/>
                 <ComboBoxItem Tag="3"  Content="卖出"/>
                 <ComboBoxItem Tag="2"  Content="买入"/>
                 <ComboBoxItem Tag="1"  Content="建仓"/>
             </ComboBox>
-            <Button Content="查询" x:Name="btnQuery" Click="btnQuery_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
+            <Label Content="查询时间:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <ComboBox  Name="cboxQueryTradeDate" Width="65" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11" Height="28" SelectionChanged="cboxQueryTradeDate_SelectionChanged">
+                <ComboBoxItem Tag="1"  Content="近一月" IsSelected="True"/>
+                <ComboBoxItem Tag="2"  Content="近三月"/>
+                <ComboBoxItem Tag="3"  Content="近半年"/>
+                <ComboBoxItem Tag="4"  Content="近一年"/>
+                <ComboBoxItem Tag="5"  Content="近三年"/>
+            </ComboBox>
+            <Button Content="查询" x:Name="btnQuery" Click="btnQuery_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
         </WrapPanel>
         <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="3" Height="3"/>
         <WrapPanel Grid.Row="3">
-            <Label Content="股票名称:" FontSize="12" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <TextBox x:Name="tboxAddStockName"  Text="" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143"  Height="28"/>
-            <Label Content="股票代码:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <TextBox x:Name="tboxAddStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="143"  Height="28"/>
+            <Label Content="股票名称:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <TextBox x:Name="tboxAddStockName"  Text="" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
+            <Label Content="股票代码:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <TextBox x:Name="tboxAddStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
         </WrapPanel>
         <WrapPanel Grid.Row="4">
-            <Label Content="交易日期:" FontSize="12" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <DatePicker x:Name="dateTradePicker"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="96" Height="19">
+            <Label Content="交易日期:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <DatePicker x:Name="dateTradePicker"  SelectedDate="{x:Static System:DateTime.Now}"   HorizontalAlignment="Left" FontSize="10" Margin="0,5,0,0" VerticalAlignment="Top" Width="90" Height="19">
                 <DatePicker.LayoutTransform>
                     <ScaleTransform  ScaleX="1.5" ScaleY="1.5"/>
                 </DatePicker.LayoutTransform>
             </DatePicker>
-            <Label Content="交易类型:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <ComboBox  Name="cboxTradeType" Width="60" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" SelectionChanged="cboxTradeType_SelectionChanged"  Height="28">
+            <Label Content="交易类型:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <ComboBox  Name="cboxTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11" SelectionChanged="cboxTradeType_SelectionChanged"  Height="28">
                 <ComboBoxItem Tag="1"  Content="建仓"/>
                 <ComboBoxItem Tag="2"  Content="买入"/>
                 <ComboBoxItem Tag="3"  Content="卖出"/>
                 <ComboBoxItem Tag="4"  Content="清仓"/>
             </ComboBox>
-            <Label Content="交易价格:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <TextBox x:Name="tboxBuyPrice"  Text="" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
-            <Label Content="交易数量:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <TextBox x:Name="tboxBuyShares"  Text="" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
-            <Label Content="盈亏金额:" FontSize="12" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <TextBox x:Name="tboxProfitLoss"  Text="" FontSize="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
-            <Button Content="新增" x:Name="btnAdd" Click="btnAdd_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="20,5,0,0" VerticalAlignment="Top" Width="65"  Height="28"/>
-            <Button Content="重置" x:Name="btnReset" Click="btnReset_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold"  Margin="20,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="65"  Height="28"/>
+            <Label Content="交易价格:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <TextBox x:Name="tboxBuyPrice"  Text="" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
+            <Label Content="交易数量:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <TextBox x:Name="tboxBuyShares"  Text="" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
+            <Label Content="盈亏金额:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <TextBox x:Name="tboxProfitLoss"  Text="" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
+            <Button Content="新增" x:Name="btnAdd" Click="btnAdd_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="20,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <Button Content="重置" x:Name="btnReset" Click="btnReset_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold"  Margin="20,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="55"  Height="28"/>
         </WrapPanel>
         <Border Grid.Row="5" BorderBrush="Gray" BorderThickness="3" Height="3"/>
-        <DataGrid  Grid.Row="6" EnableRowVirtualization="True" x:Name="dataGridRecords"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" FontSize="12" Margin="10,10,10,10" HeadersVisibility="Column" ScrollViewer.VerticalScrollBarVisibility="Visible"   RowHeaderWidth="0" LoadingRow="dataGridRecords_LoadingRow">
+        <DataGrid  Grid.Row="6" EnableRowVirtualization="True" x:Name="dataGridRecords"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" FontSize="10" Margin="10,10,10,10" HeadersVisibility="Column" ScrollViewer.VerticalScrollBarVisibility="Visible"   RowHeaderWidth="0" LoadingRow="dataGridRecords_LoadingRow">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -86,7 +94,8 @@
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="MaxHeight" Value="30"/>
+                    <Setter Property="MaxHeight" Value="33"/>
+                    <Setter Property="MinHeight" Value="33"/>
                     <Setter Property="FontSize" Value="15"/>
                     <EventSetter Event="UIElement.GotFocus" Handler="DataGridRow_GotFocus"/>
                 </Style>
@@ -110,6 +119,15 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTemplateColumn Header="复制名称" Width ="0.7*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnCopyStockName" Margin="15,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="复制" Width="50" Height="20"  FontSize="10" Background="#1C86EE" Foreground="White" Click="btnCopyStockName_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="股票代码" Binding="{Binding StockCode}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -118,6 +136,15 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTemplateColumn Header="复制代码" Width ="0.7*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnCopyStockCode" Margin="15,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="复制" Width="50" Height="20"  FontSize="10" Background="#1C86EE" Foreground="White" Click="btnCopyStockCode_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="交易日期" Binding="{Binding TradeDate, StringFormat=yyyy-MM-dd}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -175,7 +202,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="btnDelete" Margin="20,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="删除" Width="50" Height="26"  FontSize="12" Background="#1C86EE" Foreground="White" Click="btnDelete_Click"/>
+                                <Button x:Name="btnDelete" Margin="15,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="删除" Width="50" Height="20"  FontSize="10" Background="#1C86EE" Foreground="White" Click="btnDelete_Click"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
