@@ -47,8 +47,8 @@
             </ComboBox>
             <Label Content="查询时间:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
             <ComboBox  Name="cboxQueryTradeDate" Width="65" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11" Height="28" SelectionChanged="cboxQueryTradeDate_SelectionChanged">
-                <ComboBoxItem Tag="0"  Content="" IsSelected="True"/>
-                <ComboBoxItem Tag="1"  Content="近一月"/>
+                <ComboBoxItem Tag="0"  Content="" />
+                <ComboBoxItem Tag="1"  Content="近一月" IsSelected="True"/>
                 <ComboBoxItem Tag="2"  Content="近三月"/>
                 <ComboBoxItem Tag="3"  Content="近半年"/>
                 <ComboBoxItem Tag="4"  Content="近一年"/>
