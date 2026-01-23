@@ -38,8 +38,8 @@
             <TextBox x:Name="tboxStockName"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="130"  Height="28"/>
             <Label Content="股票代码:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
             <TextBox x:Name="tboxStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
-            <Label Content="交易类型:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <ComboBox  Name="cboxQueryTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"  Height="28">
+            <Label Content="交易类型:" Visibility="Collapsed" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <ComboBox Visibility="Collapsed" Name="cboxQueryTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"  Height="28">
                 <ComboBoxItem Tag="4"  Content="清仓"/>
                 <ComboBoxItem Tag="3"  Content="卖出"/>
                 <ComboBoxItem Tag="2"  Content="买入"/>

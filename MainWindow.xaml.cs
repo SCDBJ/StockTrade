@@ -284,7 +284,6 @@ namespace StockTradingRecord
                 BindDataGrid();
             }
         }
-
         private void btnCopyStockName_Click(object sender, RoutedEventArgs e)
         {
             if (stockTrade != null)
