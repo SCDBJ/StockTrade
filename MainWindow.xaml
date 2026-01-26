@@ -176,10 +176,12 @@
                             <Setter Property="Foreground" Value="Black"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding TradeType}" Value="建仓">
-                                    <Setter Property="Foreground" Value="Green"/>
+                                    <Setter Property="Foreground" Value="#1e55b0"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding TradeType}" Value="清仓">
-                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Setter Property="Foreground" Value="#1fd9b7"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
