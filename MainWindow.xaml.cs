@@ -133,7 +133,7 @@ namespace StockTradingRecord
             string buyPrice = tboxBuyPrice.Text;
             string buyShares = tboxBuyShares.Text;
             string profitLoss = tboxProfitLoss.Text;
-            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = float.Parse(buyPrice), TradeShares = int.Parse(buyShares), TradeType = tradeType, ProfitLossAmount = decimal.Parse(profitLoss) };
+            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = decimal.Parse(buyPrice), TradeShares = int.Parse(buyShares),  TradeType = tradeType, ProfitLossAmount = decimal.Parse(profitLoss) };
             string param = Newtonsoft.Json.JsonConvert.SerializeObject(stockTradeModel);
             string result = HttpService.HttpPost(stockTradeAddUrl, null, param);
             if (result != null)

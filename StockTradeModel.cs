@@ -24,7 +24,7 @@ namespace StockTradingRecord
         {
             get; set;
         }
-        public float TradePrice
+        public decimal TradePrice
         {
             get; set;
         }
@@ -32,6 +32,7 @@ namespace StockTradingRecord
         {
             get; set;
         }
+        public decimal TradeAmount => TradePrice * TradeShares;
         public decimal ProfitLossAmount
         {
             get; set;
