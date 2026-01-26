@@ -7,6 +7,11 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="StockTradingRecord.MainWindow"
         mc:Ignorable="d"
         Title="StockTradingRecord" Width="1220" Height="830" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowState="Normal" Loaded="Window_Loaded"  Closing="Window_Closing">
+    <!-- 声明转换器资源 -->
+    <Window.Resources>
+        <local:NumberToColorConverter x:Key="NumberToColorConverter"/>
+    </Window.Resources>
+
     <Grid Margin="-1,0,1,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
@@ -203,6 +208,13 @@
                             <Setter Property="VerticalAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Foreground" Value="{Binding ProfitLossAmount, Converter={StaticResource NumberToColorConverter}}"/>
+                            <!-- 可选：设置字体加粗，让颜色更醒目 -->
+                            <!--<Setter Property="FontWeight" Value="Bold"/>-->
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn Header="操作" Width ="0.7*">
                     <DataGridTemplateColumn.CellTemplate>
