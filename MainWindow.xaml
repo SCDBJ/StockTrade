@@ -43,8 +43,9 @@
             <TextBox x:Name="tboxStockName"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="130"  Height="28"/>
             <Label Content="股票代码:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
             <TextBox x:Name="tboxStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
-            <Label Content="交易类型:" Visibility="Collapsed" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <ComboBox Visibility="Collapsed" Name="cboxQueryTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"  Height="28">
+            <Label Content="交易类型:" Visibility="Visible" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
+            <ComboBox Visibility="Visible" Name="cboxQueryTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"  Height="28" SelectionChanged="cboxTradeType_SelectionChanged">
+                <ComboBoxItem Tag="5"  Content="" IsSelected="True"/>
                 <ComboBoxItem Tag="4"  Content="清仓"/>
                 <ComboBoxItem Tag="3"  Content="卖出"/>
                 <ComboBoxItem Tag="2"  Content="买入"/>
@@ -57,9 +58,10 @@
                 <ComboBoxItem Tag="2"  Content="近三月"/>
                 <ComboBoxItem Tag="3"  Content="近半年"/>
                 <ComboBoxItem Tag="4"  Content="近一年"/>
-                <ComboBoxItem Tag="5"  Content="近三年"/>
-                <ComboBoxItem Tag="5"  Content="近五年"/>
-                <ComboBoxItem Tag="5"  Content="近十年"/>
+                <ComboBoxItem Tag="5"  Content="近两年"/>
+                <ComboBoxItem Tag="6"  Content="近三年"/>
+                <ComboBoxItem Tag="7"  Content="近五年"/>
+        
             </ComboBox>
             <Button Content="查询" x:Name="btnQuery" Click="btnQuery_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
         </WrapPanel>

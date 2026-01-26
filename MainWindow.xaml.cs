@@ -60,6 +60,9 @@ namespace StockTradingRecord
                         startDate = DateTime.Now.AddYears(-1).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-1);
                         break;
+                    case "近两年":
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-2);
+                        break;
                     case "近三年":
                         startDate = DateTime.Now.AddYears(-3).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-3);
@@ -68,9 +71,6 @@ namespace StockTradingRecord
                         startDate = DateTime.Now.AddYears(-5).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-5);
                         break;
-                    case "近十年":
-                        startDate = DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd");
-                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-10);
                         break;
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;
@@ -144,7 +144,7 @@ namespace StockTradingRecord
                     string endDate = datePickerEnd.Text;
                     tboxStockCode.Text = "";
                     tboxStockName.Text = "";
-                    BindDataGrid();
+                    BindDataGrid(cboxQueryTradeType.Text);
                     MessageBox.Show("新增成功!");
                 }
                 else
@@ -155,7 +155,7 @@ namespace StockTradingRecord
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            BindDataGrid();
+            BindDataGrid(cboxQueryTradeType.Text);
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -193,7 +193,7 @@ namespace StockTradingRecord
                 string deleteResult = HttpService.HttpPost(stockTradeDeleteUrl, null, deleteJson);
                 if (deleteResult.Contains("删除成功"))
                 {
-                    BindDataGrid();
+                    BindDataGrid(cboxQueryTradeType.Text);
                 }
             }
         }
@@ -213,19 +213,32 @@ namespace StockTradingRecord
             datePickerStart.SelectedDate = DateTime.Now.AddMonths(-1);
             datePickerEnd.SelectedDate = DateTime.Now;
         }
-        private void BindDataGrid()
+        private void BindDataGrid(string tradeType)
         {
             string startDate = datePickerStart.Text;
             string endDate = datePickerEnd.Text;
             string param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
+            if(startDate=="" || endDate == "")
+            {
+                return;
+            }
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
             if (!string.IsNullOrEmpty(result))
             {
                 List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
                 if (dataGridRecords != null)
                 {
-                    dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
-                    var sumProfitLoss = stockTradeList.Sum(o => o.ProfitLossAmount);
+                    List<StockTradeModel> filteredList = stockTradeList;
+                    if (tradeType == "")
+                    {
+                        dataGridRecords.ItemsSource = filteredList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
+                    }
+                    else
+                    {
+                        filteredList= filteredList.Where(o => o.TradeType == tradeType).ToList();
+                        dataGridRecords.ItemsSource = filteredList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
+                    }
+                    var sumProfitLoss = filteredList.Sum(o => o.ProfitLossAmount);
                     tboxProfitLossAmount.Text = sumProfitLoss.ToString();
                 }
             }
@@ -238,10 +251,14 @@ namespace StockTradingRecord
             {
                 var comboBoxItem = selectedItem as ComboBoxItem;
                 string tradeType = comboBoxItem.Content.ToString();
-                tboxProfitLoss.Text = "";
-                if (tradeType != "清仓")
+                if (tboxProfitLoss != null)
                 {
-                    tboxProfitLoss.Text = "0";
+                    tboxProfitLoss.Text = "";
+                    if (tradeType != "清仓")
+                    {
+                        tboxProfitLoss.Text = "0";
+                    }
+                    BindDataGrid(tradeType);
                 }
             }
         }
@@ -267,21 +284,21 @@ namespace StockTradingRecord
                     case "近一年":
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-1);
                         break;
+                    case "近两年":
+                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-2);
+                        break;
                     case "近三年":
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-3);
                         break;
                     case "近五年":
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-5);
                         break;
-                    case "近十年":
-                        datePickerStart.SelectedDate = DateTime.Now.AddYears(-10);
-                        break;
                     default:
                         datePickerStart.SelectedDate = DateTime.Now;
                         break;
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;
-                BindDataGrid();
+                BindDataGrid(cboxQueryTradeType.Text);
             }
         }
         private void btnCopyStockName_Click(object sender, RoutedEventArgs e)
