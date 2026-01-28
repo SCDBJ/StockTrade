@@ -80,7 +80,7 @@
                 </DatePicker.LayoutTransform>
             </DatePicker>
             <Label Content="交易类型:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <ComboBox  Name="cboxTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11" SelectionChanged="cboxTradeType_SelectionChanged"  Height="28">
+            <ComboBox  Name="cboxTradeType" Width="55" Margin="0,5,0,0"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"  Height="28">
                 <ComboBoxItem Tag="1"  Content="建仓"/>
                 <ComboBoxItem Tag="2"  Content="买入"/>
                 <ComboBoxItem Tag="3"  Content="卖出"/>
