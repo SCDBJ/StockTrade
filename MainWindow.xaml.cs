@@ -75,7 +75,16 @@ namespace StockTradingRecord
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;
             }
-            string param = "{\"StockCode\":\"" + stockCode + "\",\"StockName\":\"" + stockName + "\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
+
+            string clientId = App.clientId;
+            string secretKey = App.secretKey;
+            long nonce = new Random().Next(10000, 999999999);
+            long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            string request = "{\"StockCode\":\"" + stockCode + "\",\"StockName\":\"" + stockName + "\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
+            var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
+            var param = "{" + "\"request\":" + request + ",\"clientId\":\"" + clientId + "\",\"nonce\":" + nonce + ",\"timestamp\":" + timestamp + ",\"sign\":\"" + sign + "\"}";
+
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
             if (!string.IsNullOrEmpty(result))
             {
@@ -133,8 +142,18 @@ namespace StockTradingRecord
             string buyPrice = tboxBuyPrice.Text;
             string buyShares = tboxBuyShares.Text;
             string profitLoss = tboxProfitLoss.Text;
+
+            string clientId = App.clientId;
+            string secretKey = App.secretKey;
+            long nonce = new Random().Next(10000, 999999999);
+            long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
             StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = decimal.Parse(buyPrice), TradeShares = int.Parse(buyShares),  TradeType = tradeType, ProfitLossAmount = decimal.Parse(profitLoss) };
-            string param = Newtonsoft.Json.JsonConvert.SerializeObject(stockTradeModel);
+            string request = Newtonsoft.Json.JsonConvert.SerializeObject(stockTradeModel);
+
+            var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
+            var param = "{" + "\"request\":" + request + ",\"clientId\":\"" + clientId + "\",\"nonce\":" + nonce + ",\"timestamp\":" + timestamp + ",\"sign\":\"" + sign + "\"}";
+
             string result = HttpService.HttpPost(stockTradeAddUrl, null, param);
             if (result != null)
             {
@@ -189,7 +208,15 @@ namespace StockTradingRecord
             }
             if (stockTrade != null)
             {
-                string deleteJson = "{\"StockTrade\":\"DeleteStockTrade\",\"StockId\":\"" + stockTrade.StockId + "\"}";
+                string clientId = App.clientId;
+                string secretKey = App.secretKey;
+                long nonce = new Random().Next(10000, 999999999);
+                long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+                string request = "{\"StockTrade\":\"DeleteStockTrade\",\"StockId\":\"" + stockTrade.StockId + "\"}";
+                var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
+                var deleteJson = "{" + "\"request\":" + request + ",\"clientId\":\"" + clientId + "\",\"nonce\":" + nonce + ",\"timestamp\":" + timestamp + ",\"sign\":\"" + sign + "\"}";
+
                 string deleteResult = HttpService.HttpPost(stockTradeDeleteUrl, null, deleteJson);
                 if (deleteResult.Contains("删除成功"))
                 {
@@ -217,11 +244,19 @@ namespace StockTradingRecord
         {
             string startDate = datePickerStart.Text;
             string endDate = datePickerEnd.Text;
-            string param = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
+            string clientId = App.clientId;
+            string secretKey = App.secretKey;
+            long nonce = new Random().Next(10000, 999999999);
+            long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            string request = "{\"StockCode\":\"\",\"StockName\":\"\",\"TradeStartDate\":\"" + startDate + "\",\"TradeEndDate\":\"" + endDate + "\"}";
             if(startDate=="" || endDate == "")
             {
                 return;
             }
+            var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
+            var param = "{" + "\"request\":" + request + ",\"clientId\":\"" + clientId + "\",\"nonce\":" + nonce + ",\"timestamp\":" + timestamp + ",\"sign\":\"" + sign + "\"}";
+
             string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
             if (!string.IsNullOrEmpty(result))
             {
