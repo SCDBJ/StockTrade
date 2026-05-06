@@ -32,7 +32,7 @@ namespace StockTradingRecord
         {
             get; set;
         }
-        public decimal TradeAmount => TradePrice * TradeShares;
+        public int TradeAmount => (int)(TradePrice * TradeShares);
         public decimal ProfitLossAmount
         {
             get; set;

@@ -148,7 +148,7 @@ namespace StockTradingRecord
             long nonce = new Random().Next(10000, 999999999);
             long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = decimal.Parse(buyPrice), TradeShares = int.Parse(buyShares),  TradeType = tradeType, ProfitLossAmount = decimal.Parse(profitLoss) };
+            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = decimal.Parse(buyPrice), TradeShares = int.Parse(buyShares),  TradeType = tradeType, ProfitLossAmount = int.Parse(profitLoss) };
             string request = Newtonsoft.Json.JsonConvert.SerializeObject(stockTradeModel);
 
             var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
