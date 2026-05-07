@@ -24,16 +24,16 @@ namespace StockTradingRecord
         {
             get; set;
         }
-        public decimal TradePrice
+        public string TradePrice
         {
             get; set;
         }
-        public int TradeShares
+        public string TradeShares
         {
             get; set;
         }
-        public int TradeAmount => (int)(TradePrice * TradeShares);
-        public decimal ProfitLossAmount
+        public string TradeAmount => (double.Parse(TradePrice) * double.Parse(TradeShares)).ToString();
+        public string ProfitLossAmount
         {
             get; set;
         }

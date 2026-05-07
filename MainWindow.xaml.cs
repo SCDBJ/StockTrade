@@ -94,7 +94,7 @@ namespace StockTradingRecord
                     stockTradeList = stockTradeList.Where(o => o.TradeType == cboxQueryTradeType.Text).ToList();
                 }
                 dataGridRecords.ItemsSource = stockTradeList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
-                var sumProfitLoss = stockTradeList.Sum(o => o.ProfitLossAmount);
+                var sumProfitLoss = stockTradeList.Sum(o => double.Parse(o.ProfitLossAmount));
                 tboxProfitLossAmount.Text = sumProfitLoss.ToString();
             }
         }
@@ -148,7 +148,7 @@ namespace StockTradingRecord
             long nonce = new Random().Next(10000, 999999999);
             long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = decimal.Parse(buyPrice), TradeShares = int.Parse(buyShares),  TradeType = tradeType, ProfitLossAmount = int.Parse(profitLoss) };
+            StockTradeModel stockTradeModel = new StockTradeModel { StockCode = stockCode, StockName = stockName, TradeDate = DateTime.Parse(tradeDate), TradePrice = buyPrice, TradeShares = buyShares,  TradeType = tradeType, ProfitLossAmount = profitLoss };
             string request = Newtonsoft.Json.JsonConvert.SerializeObject(stockTradeModel);
 
             var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
@@ -273,7 +273,7 @@ namespace StockTradingRecord
                         filteredList= filteredList.Where(o => o.TradeType == tradeType).ToList();
                         dataGridRecords.ItemsSource = filteredList.OrderByDescending(o => o.TradeDate).ThenByDescending(o => o.TradeType);
                     }
-                    var sumProfitLoss = filteredList.Sum(o => o.ProfitLossAmount);
+                    var sumProfitLoss = filteredList.Sum(o => double.Parse(o.ProfitLossAmount));
                     tboxProfitLossAmount.Text = sumProfitLoss.ToString();
                 }
             }
