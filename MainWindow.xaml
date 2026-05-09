@@ -68,9 +68,9 @@
         <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="3" Height="3"/>
         <WrapPanel Grid.Row="3">
             <Label Content="股票名称:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <TextBox x:Name="tboxAddStockName"  Text="" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
+            <TextBox x:Name="tboxAddStockName" SelectionChanged="tboxAddStockName_SelectionChanged" Text="" FontSize="16" Margin="0,5,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
             <Label Content="股票代码:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <TextBox x:Name="tboxAddStockCode"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
+            <TextBox x:Name="tboxAddStockCode" SelectionChanged="tboxAddStockCode_SelectionChanged"  Text="" Margin="0,5,0,0" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130"  Height="28"/>
         </WrapPanel>
         <WrapPanel Grid.Row="4">
             <Label Content="交易日期:" FontSize="10" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
@@ -91,7 +91,7 @@
             <Label Content="交易数量:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
             <TextBox x:Name="tboxBuyShares"  Text="" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
             <Label Content="盈亏金额:" FontSize="10" HorizontalAlignment="Left" Margin="30,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
-            <TextBox x:Name="tboxProfitLoss"  Text="" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
+            <TextBox x:Name="tboxProfitLoss"  Text="0" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"  Height="28"/>
             <Button Content="新增" x:Name="btnAdd" Click="btnAdd_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Margin="20,5,0,0" VerticalAlignment="Top" Width="55"  Height="28"/>
             <Button Content="重置" x:Name="btnReset" Click="btnReset_Click" Background="#1C86EE" Foreground="White" FontSize="15" FontWeight="Bold"  Margin="20,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="55"  Height="28"/>
         </WrapPanel>

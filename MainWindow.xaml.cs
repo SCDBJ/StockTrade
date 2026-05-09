@@ -71,7 +71,6 @@ namespace StockTradingRecord
                         startDate = DateTime.Now.AddYears(-5).ToString("yyyy-MM-dd");
                         datePickerStart.SelectedDate = DateTime.Now.AddYears(-5);
                         break;
-                        break;
                 }
                 datePickerEnd.SelectedDate = DateTime.Now;
             }
@@ -357,6 +356,52 @@ namespace StockTradingRecord
                     Clipboard.Clear();
                 }
                 Clipboard.SetText(stockTrade.StockCode);
+            }
+        }
+
+        private void tboxAddStockName_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var stockName = tboxAddStockName.Text.Trim();
+            if (string.IsNullOrWhiteSpace(stockName))
+                return;
+            string clientId = App.clientId;
+            string secretKey = App.secretKey;
+            long nonce = new Random().Next(10000, 999999999);
+            long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            string request = "{\"StockCode\":\"\",\"StockName\":\"" + stockName + "\",\"TradeStartDate\":\"" + DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd") + "\",\"TradeEndDate\":\"" + DateTime.Now.ToString("yyyy-MM-dd") + "\"}";
+            var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
+            var param = "{" + "\"request\":" + request + ",\"clientId\":\"" + clientId + "\",\"nonce\":" + nonce + ",\"timestamp\":" + timestamp + ",\"sign\":\"" + sign + "\"}";
+
+            string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
+            if (!string.IsNullOrEmpty(result))
+            {
+                List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
+                string stockCode= stockTradeList.Where(o => o.StockName == stockName).Select(o => o.StockCode).FirstOrDefault();
+                tboxAddStockCode.Text= stockCode;
+            }
+        }
+
+        private void tboxAddStockCode_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var stockCode = tboxAddStockCode.Text.Trim();
+            if (string.IsNullOrWhiteSpace(stockCode))
+                return;
+            string clientId = App.clientId;
+            string secretKey = App.secretKey;
+            long nonce = new Random().Next(10000, 999999999);
+            long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            string request = "{\"StockCode\":\""+stockCode+"\",\"StockName\":\"\",\"TradeStartDate\":\"" + DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd") + "\",\"TradeEndDate\":\"" + DateTime.Now.ToString("yyyy-MM-dd") + "\"}";
+            var sign = SignService.CalcSignature(clientId, secretKey, nonce, timestamp, request);
+            var param = "{" + "\"request\":" + request + ",\"clientId\":\"" + clientId + "\",\"nonce\":" + nonce + ",\"timestamp\":" + timestamp + ",\"sign\":\"" + sign + "\"}";
+
+            string result = HttpService.HttpPost(stockTradeGetUrl, null, param);
+            if (!string.IsNullOrEmpty(result))
+            {
+                List<StockTradeModel> stockTradeList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockTradeModel>>(result);
+                string stockName = stockTradeList.Where(o => o.StockCode == stockCode).Select(o => o.StockName).FirstOrDefault();
+                tboxAddStockName.Text = stockName;
             }
         }
     }
